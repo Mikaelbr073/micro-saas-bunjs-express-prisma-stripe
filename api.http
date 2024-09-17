@@ -1,0 +1,25 @@
+GET http://localhost:3000/users HTTP/1.1
+
+###
+
+GET http://localhost:3000/user/7c85b399-cfe0-419a-8d31-a09008d6ee6c HTTP/1.1
+
+###
+
+POST http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "mikael",
+    "email": "contato@mikaelcarvalho.com"
+}
+###
+
+POST http://localhost:3000/todos HTTP/1.1
+content-type: application/json
+x-user-id: 7c85b399-cfe0-419a-8d31-a09008d6ee6c
+
+{
+    "title": "Minha tarefa de número 2"
+}
+
