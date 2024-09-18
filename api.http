@@ -10,16 +10,21 @@ POST http://localhost:3000/users HTTP/1.1
 content-type: application/json
 
 {
-    "nome": "mikael",
-    "email": "contato@mikaelcarvalho.com"
+    "nome": "Matheus",
+    "email": "carlos@mikaelcarvalho.com"
 }
 ###
 
 POST http://localhost:3000/todos HTTP/1.1
 content-type: application/json
-x-user-id: 7c85b399-cfe0-419a-8d31-a09008d6ee6c
+x-user-id: dd5c9d1b-49ea-40f6-944a-fdb19b49c3fd
 
 {
-    "title": "Minha tarefa de número 2"
+    "title": "Minha tarefa de número 3"
 }
+
+###
+
+POST http://localhost:3000/checkout HTTP/1.1
+x-user-id: a536392d-fbb7-41b3-87f9-2b3efa47bae3
 
