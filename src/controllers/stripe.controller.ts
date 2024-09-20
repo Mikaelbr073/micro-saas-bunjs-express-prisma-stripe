@@ -1,9 +1,10 @@
 import type { Request, Response } from "express";
 import { config } from "../config";
+import Stripe from "stripe";
 import { handlerProcessWebhookCheckout, handlerProcessWebhookUpdateSubcription, stripe } from "../lib/stripe";
 
 export const stripeWebhookController = async (request: Request, response: Response) => {
-    let event = request.body
+    let event: Stripe.Event = request.body
 
     if (!config.stripe.webhookScret) {
         console.error('STRIPE_WEBHOOK_SECRETE_KEY is not set');
@@ -14,28 +15,28 @@ export const stripeWebhookController = async (request: Request, response: Respon
 
 
     try {
-        event = stripe.webhooks.constructEvent(
+        event = await stripe.webhooks.constructEventAsync(
             request.body,
             signature,
             config.stripe.webhookScret,
             undefined,
-            stripe.createSubtleCryptoProvider()
+            Stripe.createSubtleCryptoProvider()
         );
 
     } catch (error) {
         const erroMessage = (error instanceof Error) ? error.message : 'unknown error';
         console.error(erroMessage);
-        return response.status(400).json({error: erroMessage});
+        return response.status(400).json({ error: erroMessage });
     }
 
     try {
         switch (event.type) {
             case 'checkout.session.completed':
-                await handlerProcessWebhookCheckout(event);
+                await handlerProcessWebhookCheckout(event.data);
                 break;
             case 'customer.subscription.created':
-            case 'customer.subscription.update':
-                await handlerProcessWebhookUpdateSubcription(event)
+            case 'customer.subscription.updated':
+                await handlerProcessWebhookUpdateSubcription(event.data);
                 break;
             default:
                 console.log(`Unhandled event type ${event.type}.`);
@@ -46,7 +47,7 @@ export const stripeWebhookController = async (request: Request, response: Respon
     } catch (error) {
         const erroMessage = (error instanceof Error) ? error.message : 'unknown error';
         console.error(erroMessage);
-       return response.status(500).json({error: erroMessage})
+        return response.status(500).json({ error: erroMessage })
 
     }
 

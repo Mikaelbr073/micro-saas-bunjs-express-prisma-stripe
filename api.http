@@ -2,7 +2,7 @@ GET http://localhost:3000/users HTTP/1.1
 
 ###
 
-GET http://localhost:3000/user/7c85b399-cfe0-419a-8d31-a09008d6ee6c HTTP/1.1
+GET http://localhost:3000/user/44f06b90-b9c0-40ef-9ebf-1a4994d84e6c HTTP/1.1
 
 ###
 
@@ -10,21 +10,21 @@ POST http://localhost:3000/users HTTP/1.1
 content-type: application/json
 
 {
-    "nome": "Matheus",
-    "email": "carlos@mikaelcarvalho.com"
+    "nome": "Matheus alves",
+    "email": "matheus@gmail.com"
 }
 ###
 
 POST http://localhost:3000/todos HTTP/1.1
 content-type: application/json
-x-user-id: dd5c9d1b-49ea-40f6-944a-fdb19b49c3fd
+x-user-id: ea521ab5-7b62-4de8-805d-dfc5ea5b0513
 
 {
-    "title": "Minha tarefa de número 3"
+    "title": "Minha tarefa de número 1"
 }
 
 ###
 
 POST http://localhost:3000/checkout HTTP/1.1
-x-user-id: a536392d-fbb7-41b3-87f9-2b3efa47bae3
+x-user-id: ea521ab5-7b62-4de8-805d-dfc5ea5b0513
 
